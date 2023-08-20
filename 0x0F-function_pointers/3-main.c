@@ -1,32 +1,39 @@
 #include "3-calc.h"
-#include <stdio.h>
-#include <stdlib.h>
+
 /**
- * main - checks the code
- * @argc: argument counter
- * @argv: argument vector
- * Return: 0 (Success)
+ * main - Entry point of program
+ * @argc: Size of array argv and number of command line arguments
+ * @argv: An array of size argc
+ * Return: Always successful
  */
+
 int main(int argc, char *argv[])
 {
-	if (argc == 4)
+	int (*operator)(int, int);
+	int num1, num2;
+
+	if (argc != 4)
 	{
-		int a;
-		int b;
-		int (*func_ptr)(int, int);
-
-		a = atoi(argv[1]);
-		b = atoi(argv[3]);
-		func_ptr = get_op_func(argv[2]);
-
-		if ((*argv[2] == '%' || *argv[2] == '/') && b == 0)
-		{
-			printf("Error\n");
-			exit(EXIT_FAILURE);
-		}
-		printf("%d\n", func_ptr(a, b));
-		return (0);
+		printf("Error\n");
+		exit(98);
 	}
-	printf("Error\n");
-	exit(EXIT_FAILURE);
+	operator = get_op_func(argv[2]);
+	num1 = atoi(argv[1]);
+	num2 = atoi(argv[3]);
+
+	if (operator == NULL)
+	{
+		printf("Error\n");
+		exit(99);
+	}
+
+	if ((argv[2][0] == '%' || argv[2][0] == '/') && atoi(argv[3]) == 0)
+	{
+		printf("Error\n");
+		exit(100);
+	}
+
+	printf("%d\n", operator(num1, num2));
+
+	return (0);
 }

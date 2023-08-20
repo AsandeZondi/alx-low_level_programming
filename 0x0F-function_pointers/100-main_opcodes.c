@@ -1,33 +1,36 @@
-#include <stdio.h>
 #include <stdlib.h>
+#include <stdio.h>
 /**
- * main - prints opcodes
- * @argc: argument counter
- * @argv: argument vector
- * Return: 0 (Success)
+ * main - Mind blowing
+ * @argc: Input number of args
+ * @argv: Args
+ * Return: 0
  */
+
 int main(int argc, char *argv[])
 {
-	int i;
-	int bytes = atoi(argv[1]);
-	char *ptr;
+	int num = 0, cnt = 0;
+	char *tmp;
 
 	if (argc != 2)
 	{
 		printf("Error\n");
 		exit(1);
 	}
-	if (bytes <= 0)
+	num = atoi(argv[1]);
+	if (num < 0)
 	{
 		printf("Error\n");
 		exit(2);
 	}
-
-	ptr = (char *)&main;
-
-	for (i = 0; i < bytes; i++)
+	tmp = (char *)&main;
+	for (cnt = 0; cnt < num; cnt++)
 	{
-		printf("%02x", ptr[i] & 0xff);
+		printf("%02hhx", tmp[cnt]);
+		if (cnt != num - 1)
+		{
+			printf(" ");
+		}
 	}
 	printf("\n");
 	return (0);
